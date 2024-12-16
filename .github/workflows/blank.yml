@@ -50,7 +50,7 @@ jobs:
 
       # Deploy to Heroku (optional step)
       - name: Deploy to Heroku
-        if: ${{ secrets.HEROKU_API_KEY != '' }} # Skip if the Heroku API key is not set
+        if: ${{ secrets.HEROKU_API_KEY }} # Checks if the Heroku API key is available
         run: |
           git remote add heroku https://git.heroku.com/your-app.git
           git push heroku main
