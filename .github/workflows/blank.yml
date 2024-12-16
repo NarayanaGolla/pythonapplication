@@ -47,7 +47,6 @@ jobs:
           pip install pytest
           pip install pytest-cov
           pytest --cov=my_project
-          # pytest
 
       # Deploy to Heroku (optional step)
       - name: Deploy to Heroku
