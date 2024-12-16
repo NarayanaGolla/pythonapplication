@@ -45,7 +45,9 @@ jobs:
         run: |
           source venv/bin/activate
           pip install pytest
-          pytest
+          pip install pytest-cov
+          pytest --cov=my_project
+          # pytest
 
       # Deploy to Heroku (optional step)
       - name: Deploy to Heroku
