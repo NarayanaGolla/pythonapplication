@@ -1,0 +1,17 @@
+ansicon==1.89.0
+asgiref==3.8.1
+certifi==2024.8.30
+charset-normalizer==3.4.0
+console==0.9909
+Django==5.1.2
+ezenv==0.92
+idna==3.10
+jinxed==1.3.0
+json-extensions==0.2.1
+multipledispatch==1.0.0
+numpy==2.1.3
+requests==2.32.3
+six==1.16.0
+sqlparse==0.5.1
+tzdata==2024.2
+urllib3==2.2.3
