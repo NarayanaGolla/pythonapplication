@@ -1,7 +1,9 @@
-from math_operations import add, subtract
+from mainpython import math_operations
+
 
 def test_add():
-    assert add(2, 3) == 5
+    assert math_operations.add(2, 3) == 5
+
 
 def test_subtract():
-    assert subtract(5, 3) == 2
+    assert math_operations.subtract(5, 3) == 2

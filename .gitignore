@@ -10,7 +10,7 @@
 /build/
 /target/
 /venv
-
+.vscode
 /react-sidebar-new
 /react-sidebar-new/node_modules
 /react-sidebar-new/build
