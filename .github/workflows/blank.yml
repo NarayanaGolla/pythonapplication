@@ -44,6 +44,7 @@ jobs:
       - name: Run tests with pytest
         run: |
           source venv/bin/activate
+          pip install pytest
           pytest
 
       # Deploy to Heroku (optional step)
