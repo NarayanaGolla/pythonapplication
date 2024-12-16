@@ -49,13 +49,13 @@ jobs:
           pytest --cov=my_project
 
       # Deploy to Heroku (optional step)
-      - name: Deploy to Heroku
-        if: ${{ secrets.HEROKU_API_KEY }} # Checks if the Heroku API key is available
-        run: |
-          git remote add heroku https://git.heroku.com/your-app.git
-          git push heroku main
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      #  - name: Deploy to Heroku
+      # if: ${{ secrets.HEROKU_API_KEY }} # Checks if the Heroku API key is available
+      # run: |
+      #   git remote add heroku https://git.heroku.com/your-app.git
+      #   git push heroku main
+      # env:
+      #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
       # Clear pip cache (optional but can help in reducing conflicts)
       - name: Clear pip cache
