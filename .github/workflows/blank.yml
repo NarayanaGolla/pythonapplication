@@ -13,32 +13,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Check out the repository
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
       # Set up Python environment
-      - name: Set up Python
+      - name: Set up Python 3.12
         uses: actions/setup-python@v2
         with:
-          python-version: "3.10"
+          python-version: "3.12"
 
-      # Install dependencies
-      - name: Install dependencies
+      # Cache pip dependencies to speed up future builds
+      - name: Cache pip dependencies
+        uses: actions/cache@v2
+        with:
+          path: venv/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      # Create a virtual environment and install dependencies
+      - name: Set up virtual environment
         run: |
+          python -m venv venv
+          source venv/bin/activate
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       # Run tests
-      - name: Run tests
+      - name: Run tests with pytest
         run: |
+          source venv/bin/activate
           pytest
 
-      # Deploy to your cloud provider (optional)
-      # Example for Heroku deployment
+      # Deploy to Heroku (optional step)
       - name: Deploy to Heroku
         run: |
           git remote add heroku https://git.heroku.com/your-app.git
           git push heroku main
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      # Clear pip cache (optional but can help in reducing conflicts)
+      - name: Clear pip cache
+        run: python -m pip cache purge
