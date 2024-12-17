@@ -1,6 +1,8 @@
 name: Python CI/CD Pipeline
 
 on:
+  workflow_dispatch: # Add this to enable manual and API-triggered workflows
+
   push:
     branches:
       - master
