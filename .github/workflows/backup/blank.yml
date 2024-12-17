@@ -11,9 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     steps:
       # Checkout the repository
@@ -30,7 +27,7 @@ jobs:
       - name: Cache pip dependencies
         uses: actions/cache@v2
         with:
-          path: ~/.cache/pip
+          path: venv/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
@@ -47,30 +44,19 @@ jobs:
       - name: Run tests with pytest
         run: |
           source venv/bin/activate
+          pip install pytest
+          pip install pytest-cov
           pytest --cov=my_project
+
+      # Deploy to Heroku (optional step)
+      #  - name: Deploy to Heroku
+      # if: ${{ secrets.HEROKU_API_KEY }} # Checks if the Heroku API key is available
+      # run: |
+      #   git remote add heroku https://git.heroku.com/your-app.git
+      #   git push heroku main
+      # env:
+      #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
       # Clear pip cache (optional but can help in reducing conflicts)
       - name: Clear pip cache
         run: python -m pip cache purge
-
-  publish-gpr:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      # Checkout the repository
-      - uses: actions/checkout@v2
-
-      # Set up Node.js environment
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          registry-url: https://npm.pkg.github.com/
-
-      # Install dependencies and publish
-      - run: npm ci
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
